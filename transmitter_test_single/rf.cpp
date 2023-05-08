@@ -28,11 +28,13 @@ uint8_t spi_transfer(uint8_t data) {
 	return SPDR;
 }
 
-void nrf24_write_register(uint8_t reg, uint8_t value) {
-	PORTB &= ~(1 << CSN); // Pull CSN low
-	spi_transfer(reg);
-	spi_transfer(value);
-	PORTB |= (1 << CSN); // Pull CSN high
+void Nrf24l::configRegister(uint8_t reg, uint8_t value)
+// Clocks only one byte into the given MiRF register
+{
+	csnLow();
+	spi->transfer(W_REGISTER | (REGISTER_MASK & reg));
+	spi->transfer(value);
+	csnHi();
 }
 
 void nrf24_write_registers(uint8_t reg, uint8_t *values, uint8_t len) {
@@ -45,6 +47,11 @@ void nrf24_write_registers(uint8_t reg, uint8_t *values, uint8_t len) {
 
 	PORTB |= (1 << CSN); // CSN high
 }
+
+nrf24_set_channel(uint8_t channel) {
+	nrf24_write_register(RF_CH, channel);
+}
+
 
 
 void nrf24_init() {
@@ -65,8 +72,12 @@ void nrf24_init() {
 	
 	_delay_ms(5); //wait for power on reset
 	
+	nrf24_set_channel(2);
+	nrf24_write_register(RF_SETUP, 0x06); //1 Mbps data rate, 0dBm attenuation
+	nrf24_write_register(EN_AA, 0x01); //Enable auto acknowledgement for data pipe 0
 	
 }
+
 
 
 void nrf24_transmit_byte(uint8_t data) {
