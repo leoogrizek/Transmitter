@@ -125,6 +125,7 @@ void nrf24_init() {
 	nrf24_write_register(RF_SETUP, 0x06); //1 Mbps data rate, 0dBm attenuation
 	nrf24_write_register(EN_AA, 0x01); //Enable auto acknowledgement for data pipe 0
 	
+	
 }
 
 
