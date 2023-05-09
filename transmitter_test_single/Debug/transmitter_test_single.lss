@@ -3,29 +3,29 @@ transmitter_test_single.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000006  00800100  0000022c  000002a0  2**0
+  0 .data         00000006  00800100  00000246  000002ba  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000022c  00000000  00000000  00000074  2**1
+  1 .text         00000246  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  000002a6  2**0
+  2 .comment      00000030  00000000  00000000  000002c0  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002d8  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002f0  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000070  00000000  00000000  00000318  2**0
+  4 .debug_aranges 000000b8  00000000  00000000  00000330  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000be4  00000000  00000000  00000388  2**0
+  5 .debug_info   00000f2b  00000000  00000000  000003e8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000008b6  00000000  00000000  00000f6c  2**0
+  6 .debug_abbrev 00000934  00000000  00000000  00001313  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000004e8  00000000  00000000  00001822  2**0
+  7 .debug_line   000006af  00000000  00000000  00001c47  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000000dc  00000000  00000000  00001d0c  2**2
+  8 .debug_frame  00000180  00000000  00000000  000022f8  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000505  00000000  00000000  00001de8  2**0
+  9 .debug_str    00000628  00000000  00000000  00002478  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000029b  00000000  00000000  000022ed  2**0
+ 10 .debug_loc    000005c9  00000000  00000000  00002aa0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000050  00000000  00000000  00002588  2**0
+ 11 .debug_ranges 00000088  00000000  00000000  00003069  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -70,7 +70,7 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	ec e2       	ldi	r30, 0x2C	; 44
+  7a:	e6 e4       	ldi	r30, 0x46	; 70
   7c:	f2 e0       	ldi	r31, 0x02	; 2
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
@@ -79,7 +79,7 @@ Disassembly of section .text:
   86:	b1 07       	cpc	r27, r17
   88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
   8a:	0e 94 94 00 	call	0x128	; 0x128 <main>
-  8e:	0c 94 14 01 	jmp	0x228	; 0x228 <_exit>
+  8e:	0c 94 21 01 	jmp	0x242	; 0x242 <_exit>
 
 00000092 <__bad_interrupt>:
   92:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -102,28 +102,28 @@ void nrf24_setup() {
   a6:	0f be       	out	0x3f, r0	; 63
   a8:	cd bf       	out	0x3d, r28	; 61
 	nrf24_init();
-  aa:	0e 94 e1 00 	call	0x1c2	; 0x1c2 <_Z10nrf24_initv>
+  aa:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <_Z10nrf24_initv>
 	
 	nrf24_write_register(0x00, 0x0A); // Set to TX mode, 1-byte CRC enabled
   ae:	6a e0       	ldi	r22, 0x0A	; 10
   b0:	80 e0       	ldi	r24, 0x00	; 0
-  b2:	0e 94 b2 00 	call	0x164	; 0x164 <_Z20nrf24_write_registerhh>
+  b2:	0e 94 a3 00 	call	0x146	; 0x146 <_Z20nrf24_write_registerhh>
 	nrf24_write_register(0x01, 0x01); // Enable auto-acknowledgment for pipe 0
   b6:	61 e0       	ldi	r22, 0x01	; 1
   b8:	81 e0       	ldi	r24, 0x01	; 1
-  ba:	0e 94 b2 00 	call	0x164	; 0x164 <_Z20nrf24_write_registerhh>
+  ba:	0e 94 a3 00 	call	0x146	; 0x146 <_Z20nrf24_write_registerhh>
 	nrf24_write_register(0x05, 0x01); // Set RF channel to 1
   be:	61 e0       	ldi	r22, 0x01	; 1
   c0:	85 e0       	ldi	r24, 0x05	; 5
-  c2:	0e 94 b2 00 	call	0x164	; 0x164 <_Z20nrf24_write_registerhh>
+  c2:	0e 94 a3 00 	call	0x146	; 0x146 <_Z20nrf24_write_registerhh>
 	nrf24_write_register(0x06, 0x06); // Set data rate to 1 Mbps and output power to -18 dBm
   c6:	66 e0       	ldi	r22, 0x06	; 6
   c8:	86 e0       	ldi	r24, 0x06	; 6
-  ca:	0e 94 b2 00 	call	0x164	; 0x164 <_Z20nrf24_write_registerhh>
+  ca:	0e 94 a3 00 	call	0x146	; 0x146 <_Z20nrf24_write_registerhh>
 	nrf24_write_register(0x11, 0x01); // Set payload width for pipe 0 to 1 byte
   ce:	61 e0       	ldi	r22, 0x01	; 1
   d0:	81 e1       	ldi	r24, 0x11	; 17
-  d2:	0e 94 b2 00 	call	0x164	; 0x164 <_Z20nrf24_write_registerhh>
+  d2:	0e 94 a3 00 	call	0x146	; 0x146 <_Z20nrf24_write_registerhh>
 	
 	// Set TX address to 0xE8E8F0F0E1
 	uint8_t tx_address[5] = {0xE8, 0xE8, 0xF0, 0xF0, 0xE1};
@@ -142,7 +142,7 @@ void nrf24_setup() {
   ec:	6f 5f       	subi	r22, 0xFF	; 255
   ee:	7f 4f       	sbci	r23, 0xFF	; 255
   f0:	80 e1       	ldi	r24, 0x10	; 16
-  f2:	0e 94 c1 00 	call	0x182	; 0x182 <_Z21nrf24_write_registershPhh>
+  f2:	0e 94 b4 00 	call	0x168	; 0x168 <_Z21nrf24_write_registershPhh>
 	
 	// Set pipe 0 RX address to 0xE8E8F0F0E1
 	uint8_t rx_address[5] = {0xE8, 0xE8, 0xF0, 0xF0, 0xE1};
@@ -161,7 +161,7 @@ void nrf24_setup() {
  10c:	6a 5f       	subi	r22, 0xFA	; 250
  10e:	7f 4f       	sbci	r23, 0xFF	; 255
  110:	8a e0       	ldi	r24, 0x0A	; 10
- 112:	0e 94 c1 00 	call	0x182	; 0x182 <_Z21nrf24_write_registershPhh>
+ 112:	0e 94 b4 00 	call	0x168	; 0x168 <_Z21nrf24_write_registershPhh>
 }
  116:	2a 96       	adiw	r28, 0x0a	; 10
  118:	0f b6       	in	r0, 0x3f	; 63
@@ -184,7 +184,7 @@ int main(void) {
 	while (1) {
 		nrf24_transmit_byte(data);
  12c:	8b e2       	ldi	r24, 0x2B	; 43
- 12e:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <_Z19nrf24_transmit_byteh>
+ 12e:	0e 94 f9 00 	call	0x1f2	; 0x1f2 <_Z19nrf24_transmit_byteh>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
@@ -202,214 +202,211 @@ int main(void) {
  142:	00 00       	nop
  144:	f3 cf       	rjmp	.-26     	; 0x12c <main+0x4>
 
-00000146 <_Z8spi_initv>:
- */
-#include "rf.h"
-
-void spi_init() {
-	// Set MOSI, SCK, and CSN as output
-	DDRB |= (1 << MOSI) | (1 << SCK) | (1 << CSN);
- 146:	84 b1       	in	r24, 0x04	; 4
- 148:	8c 62       	ori	r24, 0x2C	; 44
- 14a:	84 b9       	out	0x04, r24	; 4
-
-	// Set MISO as input
-	DDRB &= ~(1 << MISO);
- 14c:	84 b1       	in	r24, 0x04	; 4
- 14e:	8f 7e       	andi	r24, 0xEF	; 239
- 150:	84 b9       	out	0x04, r24	; 4
-
-	// Enable SPI, set as Master, with SCK = CLK/16
-	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
- 152:	81 e5       	ldi	r24, 0x51	; 81
- 154:	8c bd       	out	0x2c, r24	; 44
- 156:	08 95       	ret
-
-00000158 <_Z12spi_transferh>:
+00000146 <_Z20nrf24_write_registerhh>:
+	//address is an array of bytes containing the address
+	//len is number of bytes in address, must match SETUP_AW	
+	
+	nrf24_set_rx_address(address, pipe, len);
+	nrf24_set_tx_address(address, len);
 }
+ 146:	cf 93       	push	r28
+ 148:	c6 2f       	mov	r28, r22
+ 14a:	95 b1       	in	r25, 0x05	; 5
+ 14c:	9b 7f       	andi	r25, 0xFB	; 251
+ 14e:	95 b9       	out	0x05, r25	; 5
+ 150:	8f 71       	andi	r24, 0x1F	; 31
+ 152:	80 62       	ori	r24, 0x20	; 32
+ 154:	0e 94 1b 01 	call	0x236	; 0x236 <_Z12spi_transferh>
+ 158:	8c 2f       	mov	r24, r28
+ 15a:	0e 94 1b 01 	call	0x236	; 0x236 <_Z12spi_transferh>
+ 15e:	85 b1       	in	r24, 0x05	; 5
+ 160:	84 60       	ori	r24, 0x04	; 4
+ 162:	85 b9       	out	0x05, r24	; 5
+ 164:	cf 91       	pop	r28
+ 166:	08 95       	ret
 
-uint8_t spi_transfer(uint8_t data) {
-	// Load data into the SPI data register
-	SPDR = data;
- 158:	8e bd       	out	0x2e, r24	; 46
+00000168 <_Z21nrf24_write_registershPhh>:
+ 168:	0f 93       	push	r16
+ 16a:	1f 93       	push	r17
+ 16c:	cf 93       	push	r28
+ 16e:	df 93       	push	r29
+ 170:	8b 01       	movw	r16, r22
+ 172:	d4 2f       	mov	r29, r20
+ 174:	95 b1       	in	r25, 0x05	; 5
+ 176:	9b 7f       	andi	r25, 0xFB	; 251
+ 178:	95 b9       	out	0x05, r25	; 5
+ 17a:	8f 71       	andi	r24, 0x1F	; 31
+ 17c:	80 62       	ori	r24, 0x20	; 32
+ 17e:	0e 94 1b 01 	call	0x236	; 0x236 <_Z12spi_transferh>
+ 182:	c0 e0       	ldi	r28, 0x00	; 0
+ 184:	cd 17       	cp	r28, r29
+ 186:	40 f4       	brcc	.+16     	; 0x198 <_Z21nrf24_write_registershPhh+0x30>
+ 188:	f8 01       	movw	r30, r16
+ 18a:	ec 0f       	add	r30, r28
+ 18c:	f1 1d       	adc	r31, r1
+ 18e:	80 81       	ld	r24, Z
+ 190:	0e 94 1b 01 	call	0x236	; 0x236 <_Z12spi_transferh>
+ 194:	cf 5f       	subi	r28, 0xFF	; 255
+ 196:	f6 cf       	rjmp	.-20     	; 0x184 <_Z21nrf24_write_registershPhh+0x1c>
+ 198:	85 b1       	in	r24, 0x05	; 5
+ 19a:	84 60       	ori	r24, 0x04	; 4
+ 19c:	85 b9       	out	0x05, r24	; 5
+ 19e:	df 91       	pop	r29
+ 1a0:	cf 91       	pop	r28
+ 1a2:	1f 91       	pop	r17
+ 1a4:	0f 91       	pop	r16
+ 1a6:	08 95       	ret
 
-	// Wait for transmission to complete
-	while (!(SPSR & (1 << SPIF)));
- 15a:	0d b4       	in	r0, 0x2d	; 45
- 15c:	07 fe       	sbrs	r0, 7
- 15e:	fd cf       	rjmp	.-6      	; 0x15a <_Z12spi_transferh+0x2>
+000001a8 <_Z17nrf24_set_channelh>:
+ 1a8:	68 2f       	mov	r22, r24
+ 1aa:	85 e0       	ldi	r24, 0x05	; 5
+ 1ac:	0e 94 a3 00 	call	0x146	; 0x146 <_Z20nrf24_write_registerhh>
+ 1b0:	08 95       	ret
 
-	// Return the received data
-	return SPDR;
- 160:	8e b5       	in	r24, 0x2e	; 46
-}
- 162:	08 95       	ret
-
-00000164 <_Z20nrf24_write_registerhh>:
-
-void nrf24_write_register(uint8_t reg, uint8_t value) {
- 164:	cf 93       	push	r28
- 166:	c6 2f       	mov	r28, r22
-	PORTB &= ~(1 << CSN); // Pull CSN low
- 168:	95 b1       	in	r25, 0x05	; 5
- 16a:	9b 7f       	andi	r25, 0xFB	; 251
- 16c:	95 b9       	out	0x05, r25	; 5
-	spi_transfer(reg);
- 16e:	0e 94 ac 00 	call	0x158	; 0x158 <_Z12spi_transferh>
-	spi_transfer(value);
- 172:	8c 2f       	mov	r24, r28
- 174:	0e 94 ac 00 	call	0x158	; 0x158 <_Z12spi_transferh>
-	PORTB |= (1 << CSN); // Pull CSN high
- 178:	85 b1       	in	r24, 0x05	; 5
- 17a:	84 60       	ori	r24, 0x04	; 4
- 17c:	85 b9       	out	0x05, r24	; 5
-}
- 17e:	cf 91       	pop	r28
- 180:	08 95       	ret
-
-00000182 <_Z21nrf24_write_registershPhh>:
-
-void nrf24_write_registers(uint8_t reg, uint8_t *values, uint8_t len) {
- 182:	0f 93       	push	r16
- 184:	1f 93       	push	r17
- 186:	cf 93       	push	r28
- 188:	df 93       	push	r29
- 18a:	8b 01       	movw	r16, r22
- 18c:	d4 2f       	mov	r29, r20
-	PORTB &= ~(1 << CSN); // CSN low
- 18e:	95 b1       	in	r25, 0x05	; 5
- 190:	9b 7f       	andi	r25, 0xFB	; 251
- 192:	95 b9       	out	0x05, r25	; 5
-	spi_transfer(0x20 | (0x1F & reg)); // Write command
- 194:	8f 71       	andi	r24, 0x1F	; 31
- 196:	80 62       	ori	r24, 0x20	; 32
- 198:	0e 94 ac 00 	call	0x158	; 0x158 <_Z12spi_transferh>
-
-	for (uint8_t i = 0; i < len; i++) {
- 19c:	c0 e0       	ldi	r28, 0x00	; 0
- 19e:	cd 17       	cp	r28, r29
- 1a0:	40 f4       	brcc	.+16     	; 0x1b2 <_Z21nrf24_write_registershPhh+0x30>
-		spi_transfer(values[i]);
- 1a2:	f8 01       	movw	r30, r16
- 1a4:	ec 0f       	add	r30, r28
- 1a6:	f1 1d       	adc	r31, r1
- 1a8:	80 81       	ld	r24, Z
- 1aa:	0e 94 ac 00 	call	0x158	; 0x158 <_Z12spi_transferh>
-
-void nrf24_write_registers(uint8_t reg, uint8_t *values, uint8_t len) {
-	PORTB &= ~(1 << CSN); // CSN low
-	spi_transfer(0x20 | (0x1F & reg)); // Write command
-
-	for (uint8_t i = 0; i < len; i++) {
- 1ae:	cf 5f       	subi	r28, 0xFF	; 255
- 1b0:	f6 cf       	rjmp	.-20     	; 0x19e <_Z21nrf24_write_registershPhh+0x1c>
-		spi_transfer(values[i]);
-	}
-
-	PORTB |= (1 << CSN); // CSN high
- 1b2:	85 b1       	in	r24, 0x05	; 5
- 1b4:	84 60       	ori	r24, 0x04	; 4
- 1b6:	85 b9       	out	0x05, r24	; 5
-}
- 1b8:	df 91       	pop	r29
- 1ba:	cf 91       	pop	r28
- 1bc:	1f 91       	pop	r17
- 1be:	0f 91       	pop	r16
- 1c0:	08 95       	ret
-
-000001c2 <_Z10nrf24_initv>:
-
+000001b2 <_Z10nrf24_initv>:
 
 void nrf24_init() {
+	
+	
 	//setup SPI
 	spi_init();
- 1c2:	0e 94 a3 00 	call	0x146	; 0x146 <_Z8spi_initv>
+ 1b2:	0e 94 12 01 	call	0x224	; 0x224 <_Z8spi_initv>
 	
 	// Set CE as output
 	DDRB |= (1 << CE);
- 1c6:	84 b1       	in	r24, 0x04	; 4
- 1c8:	82 60       	ori	r24, 0x02	; 2
- 1ca:	84 b9       	out	0x04, r24	; 4
+ 1b6:	84 b1       	in	r24, 0x04	; 4
+ 1b8:	82 60       	ori	r24, 0x02	; 2
+ 1ba:	84 b9       	out	0x04, r24	; 4
 
 	// Set CE low
 	PORTB &= ~(1 << CE);
- 1cc:	85 b1       	in	r24, 0x05	; 5
- 1ce:	8d 7f       	andi	r24, 0xFD	; 253
- 1d0:	85 b9       	out	0x05, r24	; 5
+ 1bc:	85 b1       	in	r24, 0x05	; 5
+ 1be:	8d 7f       	andi	r24, 0xFD	; 253
+ 1c0:	85 b9       	out	0x05, r24	; 5
 
 	// Set CSN as output
 	DDRB |= (1 << CSN);
- 1d2:	84 b1       	in	r24, 0x04	; 4
- 1d4:	84 60       	ori	r24, 0x04	; 4
- 1d6:	84 b9       	out	0x04, r24	; 4
+ 1c2:	84 b1       	in	r24, 0x04	; 4
+ 1c4:	84 60       	ori	r24, 0x04	; 4
+ 1c6:	84 b9       	out	0x04, r24	; 4
 
 	// Set CSN high
 	PORTB &= ~(1 << CSN);
- 1d8:	85 b1       	in	r24, 0x05	; 5
- 1da:	8b 7f       	andi	r24, 0xFB	; 251
- 1dc:	85 b9       	out	0x05, r24	; 5
- 1de:	8f e1       	ldi	r24, 0x1F	; 31
- 1e0:	9e e4       	ldi	r25, 0x4E	; 78
- 1e2:	01 97       	sbiw	r24, 0x01	; 1
- 1e4:	f1 f7       	brne	.-4      	; 0x1e2 <_Z10nrf24_initv+0x20>
- 1e6:	00 c0       	rjmp	.+0      	; 0x1e8 <_Z10nrf24_initv+0x26>
- 1e8:	00 00       	nop
+ 1c8:	85 b1       	in	r24, 0x05	; 5
+ 1ca:	8b 7f       	andi	r24, 0xFB	; 251
+ 1cc:	85 b9       	out	0x05, r24	; 5
+ 1ce:	8f e1       	ldi	r24, 0x1F	; 31
+ 1d0:	9e e4       	ldi	r25, 0x4E	; 78
+ 1d2:	01 97       	sbiw	r24, 0x01	; 1
+ 1d4:	f1 f7       	brne	.-4      	; 0x1d2 <_Z10nrf24_initv+0x20>
+ 1d6:	00 c0       	rjmp	.+0      	; 0x1d8 <_Z10nrf24_initv+0x26>
+ 1d8:	00 00       	nop
 	
 	_delay_ms(5); //wait for power on reset
 	
-	nrf24_write_register(RF_SETUP, 0b00101110); //set 1 Mbps, 0 dBm
- 1ea:	6e e2       	ldi	r22, 0x2E	; 46
- 1ec:	86 e0       	ldi	r24, 0x06	; 6
- 1ee:	0e 94 b2 00 	call	0x164	; 0x164 <_Z20nrf24_write_registerhh>
- 1f2:	08 95       	ret
+	nrf24_set_channel(2);
+ 1da:	82 e0       	ldi	r24, 0x02	; 2
+ 1dc:	0e 94 d4 00 	call	0x1a8	; 0x1a8 <_Z17nrf24_set_channelh>
+	nrf24_write_register(RF_SETUP, 0x06); //1 Mbps data rate, 0dBm attenuation
+ 1e0:	66 e0       	ldi	r22, 0x06	; 6
+ 1e2:	86 e0       	ldi	r24, 0x06	; 6
+ 1e4:	0e 94 a3 00 	call	0x146	; 0x146 <_Z20nrf24_write_registerhh>
+	nrf24_write_register(EN_AA, 0x01); //Enable auto acknowledgement for data pipe 0
+ 1e8:	61 e0       	ldi	r22, 0x01	; 1
+ 1ea:	81 e0       	ldi	r24, 0x01	; 1
+ 1ec:	0e 94 a3 00 	call	0x146	; 0x146 <_Z20nrf24_write_registerhh>
+ 1f0:	08 95       	ret
 
-000001f4 <_Z19nrf24_transmit_byteh>:
+000001f2 <_Z19nrf24_transmit_byteh>:
+	
 }
 
 
+
 void nrf24_transmit_byte(uint8_t data) {
- 1f4:	cf 93       	push	r28
- 1f6:	c8 2f       	mov	r28, r24
+ 1f2:	cf 93       	push	r28
+ 1f4:	c8 2f       	mov	r28, r24
 	PORTB &= ~(1 << CSN); // Pull CSN low
- 1f8:	85 b1       	in	r24, 0x05	; 5
- 1fa:	8b 7f       	andi	r24, 0xFB	; 251
- 1fc:	85 b9       	out	0x05, r24	; 5
+ 1f6:	85 b1       	in	r24, 0x05	; 5
+ 1f8:	8b 7f       	andi	r24, 0xFB	; 251
+ 1fa:	85 b9       	out	0x05, r24	; 5
 	spi_transfer(0xA0); // Write payload command
- 1fe:	80 ea       	ldi	r24, 0xA0	; 160
- 200:	0e 94 ac 00 	call	0x158	; 0x158 <_Z12spi_transferh>
+ 1fc:	80 ea       	ldi	r24, 0xA0	; 160
+ 1fe:	0e 94 1b 01 	call	0x236	; 0x236 <_Z12spi_transferh>
 	spi_transfer(data);
- 204:	8c 2f       	mov	r24, r28
- 206:	0e 94 ac 00 	call	0x158	; 0x158 <_Z12spi_transferh>
+ 202:	8c 2f       	mov	r24, r28
+ 204:	0e 94 1b 01 	call	0x236	; 0x236 <_Z12spi_transferh>
 	PORTB |= (1 << CSN); // Pull CSN high
- 20a:	85 b1       	in	r24, 0x05	; 5
- 20c:	84 60       	ori	r24, 0x04	; 4
- 20e:	85 b9       	out	0x05, r24	; 5
+ 208:	85 b1       	in	r24, 0x05	; 5
+ 20a:	84 60       	ori	r24, 0x04	; 4
+ 20c:	85 b9       	out	0x05, r24	; 5
 
 	// Pulse CE high to start transmission
 	PORTB |= (1 << CE);
- 210:	85 b1       	in	r24, 0x05	; 5
- 212:	82 60       	ori	r24, 0x02	; 2
- 214:	85 b9       	out	0x05, r24	; 5
+ 20e:	85 b1       	in	r24, 0x05	; 5
+ 210:	82 60       	ori	r24, 0x02	; 2
+ 212:	85 b9       	out	0x05, r24	; 5
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 216:	85 e3       	ldi	r24, 0x35	; 53
- 218:	8a 95       	dec	r24
- 21a:	f1 f7       	brne	.-4      	; 0x218 <_Z19nrf24_transmit_byteh+0x24>
- 21c:	00 00       	nop
-	_delay_us(10);
+ 214:	80 e5       	ldi	r24, 0x50	; 80
+ 216:	8a 95       	dec	r24
+ 218:	f1 f7       	brne	.-4      	; 0x216 <_Z19nrf24_transmit_byteh+0x24>
+	_delay_us(15);
 	PORTB &= ~(1 << CE);
- 21e:	85 b1       	in	r24, 0x05	; 5
- 220:	8d 7f       	andi	r24, 0xFD	; 253
- 222:	85 b9       	out	0x05, r24	; 5
- 224:	cf 91       	pop	r28
- 226:	08 95       	ret
+ 21a:	85 b1       	in	r24, 0x05	; 5
+ 21c:	8d 7f       	andi	r24, 0xFD	; 253
+ 21e:	85 b9       	out	0x05, r24	; 5
+ 220:	cf 91       	pop	r28
+ 222:	08 95       	ret
 
-00000228 <_exit>:
- 228:	f8 94       	cli
+00000224 <_Z8spi_initv>:
+#include <avr/io.h>
+#include "spi.h"
 
-0000022a <__stop_program>:
- 22a:	ff cf       	rjmp	.-2      	; 0x22a <__stop_program>
+void spi_init() {
+	// Set MOSI, SCK, and CSN as output
+	DDRB |= (1 << MOSI) | (1 << SCK);
+ 224:	84 b1       	in	r24, 0x04	; 4
+ 226:	88 62       	ori	r24, 0x28	; 40
+ 228:	84 b9       	out	0x04, r24	; 4
+
+	// Set MISO as input
+	DDRB &= ~(1 << MISO);
+ 22a:	84 b1       	in	r24, 0x04	; 4
+ 22c:	8f 7e       	andi	r24, 0xEF	; 239
+ 22e:	84 b9       	out	0x04, r24	; 4
+
+	// Enable SPI, set as Master, with SCK = CLK/16
+	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
+ 230:	81 e5       	ldi	r24, 0x51	; 81
+ 232:	8c bd       	out	0x2c, r24	; 44
+ 234:	08 95       	ret
+
+00000236 <_Z12spi_transferh>:
+}
+
+uint8_t spi_transfer(uint8_t data) {
+	// Load data into the SPI data register
+	SPDR = data;
+ 236:	8e bd       	out	0x2e, r24	; 46
+
+	// Wait for transmission to complete
+	while (!(SPSR & (1 << SPIF)));
+ 238:	0d b4       	in	r0, 0x2d	; 45
+ 23a:	07 fe       	sbrs	r0, 7
+ 23c:	fd cf       	rjmp	.-6      	; 0x238 <_Z12spi_transferh+0x2>
+
+	// Return the received data
+	return SPDR;
+ 23e:	8e b5       	in	r24, 0x2e	; 46
+ 240:	08 95       	ret
+
+00000242 <_exit>:
+ 242:	f8 94       	cli
+
+00000244 <__stop_program>:
+ 244:	ff cf       	rjmp	.-2      	; 0x244 <__stop_program>

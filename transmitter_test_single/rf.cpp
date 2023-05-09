@@ -5,44 +5,42 @@
  *  Author: Leo
  */
 #include "rf.h"
+#include "spi.h"
 
-void spi_init() {
-	// Set MOSI, SCK, and CSN as output
-	DDRB |= (1 << MOSI) | (1 << SCK) | (1 << CSN);
 
-	// Set MISO as input
-	DDRB &= ~(1 << MISO);
 
-	// Enable SPI, set as Master, with SCK = CLK/16
-	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
-}
-
-uint8_t spi_transfer(uint8_t data) {
-	// Load data into the SPI data register
-	SPDR = data;
-
-	// Wait for transmission to complete
-	while (!(SPSR & (1 << SPIF)));
-
-	// Return the received data
-	return SPDR;
-}
-
-void Nrf24l::configRegister(uint8_t reg, uint8_t value)
-// Clocks only one byte into the given MiRF register
-{
+void nrf24_write_register(uint8_t reg, uint8_t value) {
 	PORTB &= ~(1 << CSN); // CSN low
-	spi->transfer(W_REGISTER | (REGISTER_MASK & reg));
-	spi->transfer(value);
-	csnHi();
+	spi_transfer(W_REGISTER | (0x1F & reg)); // Send write command
+	spi_transfer(value); // Transfer register value
+	PORTB |= (1 << CSN); // CSN high
 }
 
 void nrf24_write_registers(uint8_t reg, uint8_t *values, uint8_t len) {
 	PORTB &= ~(1 << CSN); // CSN low
-	spi_transfer(0x20 | (0x1F & reg)); // Write command
+	spi_transfer(W_REGISTER | (0x1F & reg)); // Send write command
 
-	for (uint8_t i = 0; i < len; i++) {
+	for (uint8_t i = 0; i < len; i++) { // Transfer register values
 		spi_transfer(values[i]);
+	}
+
+	PORTB |= (1 << CSN); // CSN high
+}
+
+uint8_t nrf24_read_register(uint8_t reg) {
+	PORTB &= ~(1 << CSN); // CSN low
+	spi_transfer(R_REGISTER | (0x1F & reg)); // Send read command
+	uint8_t reg_value = spi_transfer(0x00); // Read register value
+	PORTB |= (1 << CSN); // CSN high
+	return reg_value;
+}
+
+void nrf24_read_registers(uint8_t reg, uint8_t *values, uint8_t len) {
+	PORTB &= ~(1 << CSN); // CSN low
+	spi_transfer(R_REGISTER | (0x1F & reg)); // Send read command
+
+	for (uint8_t i = 0; i < len; i++) { // Read register values
+		values[i]=spi_transfer(0x00);
 	}
 
 	PORTB |= (1 << CSN); // CSN high
@@ -78,7 +76,9 @@ void nrf24_set_rx_address(uint8_t* address, uint8_t pipe, uint8_t len) {
 			break;
 		case 5:
 			reg=RX_ADDR_P5;
-			break;					
+			break;
+		default:
+			return;					
 	}
 	
 	nrf24_write_registers(reg, address, len);
@@ -99,11 +99,13 @@ void nrf24_set_rx_tx_address(uint8_t* address, uint8_t pipe, uint8_t len) {
 	//address is an array of bytes containing the address
 	//len is number of bytes in address, must match SETUP_AW	
 	
-	nrf24_set_rx_address(uint8_t* address, uint8_t pipe, uint8_t len);
-	nrf24_set_tx_address(uint8_t* address, uint8_t len);
+	nrf24_set_rx_address(address, pipe, len);
+	nrf24_set_tx_address(address, len);
 }
 
 void nrf24_init() {
+	
+	
 	//setup SPI
 	spi_init();
 	

@@ -6,3 +6,5 @@ main.cpp
 
 rf.cpp
 
+spi.cpp
+

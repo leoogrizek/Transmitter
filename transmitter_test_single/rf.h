@@ -16,9 +16,7 @@
 // NRF24L01+ pins
 #define CE PORTB1
 #define CSN PORTB2
-#define MOSI PORTB3
-#define MISO PORTB4
-#define SCK PORTB5
+
 
 
 //NRF24L01+ registers
