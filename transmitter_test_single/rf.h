@@ -71,6 +71,8 @@ void nrf24_transmit_byte(uint8_t data);
 void nrf24_set_rx_address(uint8_t* address, uint8_t pipe, uint8_t len);
 void nrf24_set_tx_address(uint8_t* address, uint8_t len);
 void nrf24_set_rx_tx_address(uint8_t* address, uint8_t pipe, uint8_t len);
+uint8_t nrf24_read_register(uint8_t reg);
+void nrf24_read_registers(uint8_t reg, uint8_t *values, uint8_t len);
 
 
 #endif /* RF_H_ */

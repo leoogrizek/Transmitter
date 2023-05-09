@@ -10,7 +10,7 @@
 
 void spi_init() {
 	// Set MOSI, SCK, and CSN as output
-	DDRB |= (1 << MOSI) | (1 << SCK);
+	DDRB |= (1 << MOSI) | (1 << SCK) | (1 << CSN);
 
 	// Set MISO as input
 	DDRB &= ~(1 << MISO);

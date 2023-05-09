@@ -10,6 +10,7 @@
 #define SPI_H_
 
 //SPI pins
+#define CSN PORTB2
 #define MOSI PORTB3
 #define MISO PORTB4
 #define SCK PORTB5
