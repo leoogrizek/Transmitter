@@ -97,8 +97,7 @@ void nrf24_set_rx_tx_address(uint8_t* address, uint8_t pipe, uint8_t len) {
 	//sets both RX and TX address. Minimal needed for functioning is RX=TX on transmitter side equal to RX on receiver side.
 	//for bidirectional communication both sides need to have matching RX and TX set.
 	//address is an array of bytes containing the address
-	//len is number of bytes in address, must match SETUP_AW
-	
+	//len is number of bytes in address, must match SETUP_AW	
 	
 	nrf24_set_rx_address(uint8_t* address, uint8_t pipe, uint8_t len);
 	nrf24_set_tx_address(uint8_t* address, uint8_t len);

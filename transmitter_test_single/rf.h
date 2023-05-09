@@ -74,4 +74,5 @@ void nrf24_set_rx_address(uint8_t* address, uint8_t pipe, uint8_t len);
 void nrf24_set_tx_address(uint8_t* address, uint8_t len);
 void nrf24_set_rx_tx_address(uint8_t* address, uint8_t pipe, uint8_t len);
 
+
 #endif /* RF_H_ */
