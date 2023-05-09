@@ -48,11 +48,61 @@ void nrf24_write_registers(uint8_t reg, uint8_t *values, uint8_t len) {
 	PORTB |= (1 << CSN); // CSN high
 }
 
-nrf24_set_channel(uint8_t channel) {
+void nrf24_set_channel(uint8_t channel) {
 	nrf24_write_register(RF_CH, channel);
 }
 
+void nrf24_set_rx_address(uint8_t* address, uint8_t pipe, uint8_t len) {
+	//sets RX address. Minimal needed for functioning is RX=TX on transmitter side equal to RX on receiver side.
+	//for bidirectional communication both sides need to have matching RX and TX set.
+	//address is an array of bytes containing the address
+	//pipe is data pipe for which this is set
+	//len is number of bytes in address, must match SETUP_AW
+	
+	uint8_t reg;
+	switch (pipe) {
+		case 0:
+			reg=RX_ADDR_P0;
+			break;
+		case 1:
+			reg=RX_ADDR_P1;
+			break;
+		case 2:
+			reg=RX_ADDR_P2;
+			break;
+		case 3:
+			reg=RX_ADDR_P3;
+			break;
+		case 4:
+			reg=RX_ADDR_P4;
+			break;
+		case 5:
+			reg=RX_ADDR_P5;
+			break;					
+	}
+	
+	nrf24_write_registers(reg, address, len);
+}
 
+void nrf24_set_tx_address(uint8_t* address, uint8_t len) {
+	//sets TX address. Minimal needed for functioning is RX=TX on transmitter side equal to RX on receiver side.
+	//for bidirectional communication both sides need to have matching RX and TX set.
+	//address is an array of bytes containing the address
+	//len is number of bytes in address, must match SETUP_AW
+	
+	nrf24_write_registers(TX_ADDR, address, len);
+}
+
+void nrf24_set_rx_tx_address(uint8_t* address, uint8_t pipe, uint8_t len) {
+	//sets both RX and TX address. Minimal needed for functioning is RX=TX on transmitter side equal to RX on receiver side.
+	//for bidirectional communication both sides need to have matching RX and TX set.
+	//address is an array of bytes containing the address
+	//len is number of bytes in address, must match SETUP_AW
+	
+	
+	nrf24_set_rx_address(uint8_t* address, uint8_t pipe, uint8_t len);
+	nrf24_set_tx_address(uint8_t* address, uint8_t len);
+}
 
 void nrf24_init() {
 	//setup SPI
@@ -88,6 +138,6 @@ void nrf24_transmit_byte(uint8_t data) {
 
 	// Pulse CE high to start transmission
 	PORTB |= (1 << CE);
-	_delay_us(10);
+	_delay_us(15);
 	PORTB &= ~(1 << CE);
 }
