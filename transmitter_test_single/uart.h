@@ -1,0 +1,22 @@
+/*
+ * uart.h
+ *
+ * Created: 9. 05. 2023 18:37:58
+ *  Author: Leo
+ */ 
+
+
+#ifndef UART_H_
+#define UART_H_
+
+
+// Function prototypes
+void uart_init(uint32_t baud_rate);
+void uart_transmit(uint8_t data);
+uint8_t uart_receive(void);
+uint8_t uart_data_available(void);
+void uart_println(const char *str);
+
+
+
+#endif /* UART_H_ */

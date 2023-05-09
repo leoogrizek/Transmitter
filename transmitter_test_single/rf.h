@@ -45,6 +45,7 @@
 #define FIFO_STATUS   0x17	// FIFO Status Register
 
 
+
 //NRF24L01+ SPI commands
 
 #define REGISTER_MASK 0x1F  // Mask for sending SPI commands to registers
@@ -56,7 +57,6 @@
 #define FLUSH_TX      0xE1  // Flush TX FIFO
 #define FLUSH_RX      0xE2  // Flush RX FIFO
 #define REUSE_TX_PL   0xE3  // Reuse last transmitted payload
-
 
 
 
