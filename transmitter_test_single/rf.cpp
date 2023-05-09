@@ -31,7 +31,7 @@ uint8_t spi_transfer(uint8_t data) {
 void Nrf24l::configRegister(uint8_t reg, uint8_t value)
 // Clocks only one byte into the given MiRF register
 {
-	csnLow();
+	PORTB &= ~(1 << CSN); // CSN low
 	spi->transfer(W_REGISTER | (REGISTER_MASK & reg));
 	spi->transfer(value);
 	csnHi();

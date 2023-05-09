@@ -21,7 +21,7 @@
 #define SCK PORTB5
 
 
-//NRF24L01+ bit mnemonics
+//NRF24L01+ registers
 
 #define CONFIG      0x00	// Configuration Register
 #define EN_AA       0x01	// Enable 'Auto Acknowledgment' Function
@@ -45,6 +45,18 @@
 #define RX_PW_P4    0x15	// Number of bytes in RX payload in data pipe 4
 #define RX_PW_P5    0x16	// Number of bytes in RX payload in data pipe 5
 #define FIFO_STATUS 0x17	// FIFO Status Register
+
+
+//NRF24L01+ SPI commands
+
+#define R_REGISTER 0x00 // Read command and status registers, 0b000XXXXX last 5 bits=5 bit register map address
+#define W_REGISTER 0x20 // Write command and status registers, 0b001XXXXX last 5 bits=5 bit register map address
+#define R_RX_PAYLOAD 0x61 // Read RX payload for data pipe 0 to 5
+#define W_TX_PAYLOAD 0xA0 // Write TX payload
+#define FLUSH_TX 0xE1 // Flush TX FIFO
+#define FLUSH_RX 0xE2 // Flush RX FIFO
+#define REUSE_TX_PL 0xE3 // Reuse last transmitted payload
+
 
 
 
