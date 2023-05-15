@@ -19,7 +19,7 @@
 
 
 
-//NRF24L01+ registers
+//NRF24L01+ memory map
 
 #define CONFIG        0x00	// Configuration Register
 #define EN_AA         0x01	// Enable 'Auto Acknowledgment' Function
@@ -62,17 +62,20 @@
 
 //functions
 
-void spi_init();
-uint8_t spi_transfer(uint8_t data);
 void nrf24_write_register(uint8_t reg, uint8_t value);
 void nrf24_write_registers(uint8_t reg, uint8_t *values, uint8_t len);
 void nrf24_init();
 void nrf24_transmit_byte(uint8_t data);
-void nrf24_set_rx_address(uint8_t* address, uint8_t pipe, uint8_t len);
-void nrf24_set_tx_address(uint8_t* address, uint8_t len);
-void nrf24_set_rx_tx_address(uint8_t* address, uint8_t pipe, uint8_t len);
+void nrf24_set_rx_address(uint8_t *address, uint8_t pipe, uint8_t len);
+void nrf24_set_tx_address(uint8_t *address, uint8_t len);
+void nrf24_set_rx_tx_address(uint8_t *address, uint8_t pipe, uint8_t len);
 uint8_t nrf24_read_register(uint8_t reg);
 void nrf24_read_registers(uint8_t reg, uint8_t *values, uint8_t len);
+void nrf24_power_up_tx();
+void nrf24_send_cmd(uint8_t cmd);
+uint8_t nrf24_transmit(uint8_t *data, uint8_t len);
+void nrf24_set_tx_mode(uint8_t *address, uint8_t channel);
+void nrf24_set_rx_mode(uint8_t *address, uint8_t channel);
 
 
 #endif /* RF_H_ */
