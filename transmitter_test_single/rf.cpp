@@ -223,19 +223,13 @@ uint8_t nrf24_transmit(uint8_t *data, uint8_t len) {
 	_delay_ms(1);
 	
 	uint8_t fifostatus = nrf24_read_register(FIFO_STATUS);
-	uart_println("fifo");
-	uart_print_binary(fifostatus);
-	uart_newline();
+
 	
 	if ((fifostatus&(1<<4))&&(!(fifostatus&(1<<3)))) {
 		nrf24_send_cmd(FLUSH_TX);
-		uart_println("test");
-		uart_newline();
 		return 1;
 	}
 	return 0;
-
-
 }
 
 void nrf24_power_up_tx() {
