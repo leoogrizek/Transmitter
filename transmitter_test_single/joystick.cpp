@@ -12,8 +12,8 @@ void ADC_init()
 	// Set pins A0-A3 as inputs
 	DDRC &= ~((1<<DDC0)|(1<<DDC1)|(1<<DDC2)|(1<<DDC3));
 	
-	// Reference voltage: AVCC, left adjust the ADC value (8 bit precision)
-	ADMUX = (1<<REFS0)|(1<<ADLAR);
+	// Reference voltage: AREF, left adjust the ADC value (8 bit precision)
+	ADMUX = (0<<REFS1)|(0<<REFS0)|(1<<ADLAR)|(0<<MUX3)|(0<<MUX2)|(0<<MUX1)|(0<<MUX0);
 
 	// Enable ADC and set prescaler to 64x (16MHz / 64 = 250kHz ADC clock)
 	ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1);

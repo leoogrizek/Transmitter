@@ -109,9 +109,9 @@ void ADC_init()
   a8:	80 7f       	andi	r24, 0xF0	; 240
   aa:	87 b9       	out	0x07, r24	; 7
 	
-	// Reference voltage: AVCC, left adjust the ADC value (8 bit precision)
-	ADMUX = (1<<REFS0)|(1<<ADLAR);
-  ac:	80 e6       	ldi	r24, 0x60	; 96
+	// Reference voltage: AREF, left adjust the ADC value (8 bit precision)
+	ADMUX = (0<<REFS1)|(0<<REFS0)|(1<<ADLAR)|(0<<MUX3)|(0<<MUX2)|(0<<MUX1)|(0<<MUX0);
+  ac:	80 e2       	ldi	r24, 0x20	; 32
   ae:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
 
 	// Enable ADC and set prescaler to 64x (16MHz / 64 = 250kHz ADC clock)
