@@ -13,12 +13,12 @@ uint8_t value = 0;
 
 
 int main(void) {
-	uart_init(9600);
+	uart_init(9600); // Initialize UART, SPI and ADC
 	spi_init();
 	ADC_init();
 	
-	uint8_t TxAddress[] = {0xEE, 0xDD, 0xCC, 0xBB, 0xAA};
-	uint8_t TxData[32] = {0};
+	uint8_t TxAddress[] = {0xEE, 0xDD, 0xCC, 0xBB, 0xAA}; // Address to transmit to
+	uint8_t TxData[32] = {0}; // Data to transmit
 	
 	char buffer[50];  // Buffer to hold the formatted string
 	uart_print_binary(nrf24_read_register(CONFIG));
@@ -32,15 +32,15 @@ int main(void) {
 	_delay_ms(10);
 
 	while (1) {
-		read_joystick_values(TxData);
-		if(nrf24_transmit(TxData, 32)==1) {
+		read_joystick_values(TxData); // Read joysticks
+		if(nrf24_transmit(TxData, 32)==1) { // Transmit packet
 			uart_println("transmitted");
 			sprintf(buffer, "Yaw: %d, Thrust: %d, Pitch: %d, Roll: %d", TxData[0], TxData[1], TxData[2], TxData[3]);
 
 			uart_println(buffer);
 		}
 		
-		_delay_ms(50);
+		_delay_ms(50); // Limit transmit frequency
 	}
 	
 	return 0;
