@@ -13,7 +13,7 @@
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
     <AssemblyName>transmitter_test_single</AssemblyName>
-    <Name>transmitter_test_single</Name>
+    <Name>Transmitter</Name>
     <RootNamespace>transmitter_test_single</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
