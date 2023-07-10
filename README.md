@@ -1,7 +1,8 @@
 # Remote-Controlled Airplane Transmitter
 
 ## Description
-This repository contains the code and documentation for a remote-controlled airplane transmitter built using an Arduino Nano and a NRF24L01 transceiver. The transmitter is part of a larger project to create a remote-controlled airplane.
+This repository contains the code and documentation for a remote-controlled airplane transmitter built using an Arduino Nano and a NRF24L01 transceiver. The transmitter is part of a larger project to create a remote-controlled airplane. The corresponding receiver can be found in this [repository](https://github.com/leoogrizek/Receiver).
+
 
 ## Table of Contents
 - [Electronics](#electronics)
